@@ -108,5 +108,5 @@ def test_dag_structure():
 
     bag = DagBag(dag_folder=str(PROJECT_ROOT / "dags"), include_examples=False)
     assert not bag.import_errors
-    dag = bag.get_dag("maamora_pipeline")
+    dag = bag.dags["maamora_pipeline"]
     assert [t.task_id for t in dag.topological_sort()] == expected

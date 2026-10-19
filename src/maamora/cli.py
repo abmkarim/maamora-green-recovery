@@ -8,7 +8,7 @@ import sys
 import time
 from collections.abc import Callable
 
-from maamora.config import Config, load_config
+from maamora.config import PROJECT_ROOT, Config, load_config
 
 log = logging.getLogger("maamora")
 
@@ -111,8 +111,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("command", choices=[*STEPS, "all"])
     parser.add_argument("--config", default=None, help="chemin du YAML de configuration")
     args = parser.parse_args(argv)
-    logging.basicConfig(level=logging.INFO,
-                        format="%(asctime)s %(levelname)s %(name)s : %(message)s")
+    log_dir = PROJECT_ROOT / "logs"
+    log_dir.mkdir(exist_ok=True)
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s : %(message)s",
+        handlers=[logging.StreamHandler(sys.stdout),
+                  logging.FileHandler(log_dir / "pipeline.log", encoding="utf-8")],
+    )
     cfg = load_config(args.config)
     steps = PIPELINE if args.command == "all" else [args.command]
     for name in steps:

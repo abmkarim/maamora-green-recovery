@@ -10,7 +10,9 @@ param(
     [string]$Target = "help"
 )
 
-$ErrorActionPreference = "Stop"
+# "Continue" : sous PowerShell 5.1, "Stop" transforme toute sortie stderr d'un
+# exécutable natif en erreur fatale. Les codes de sortie sont vérifiés explicitement.
+$ErrorActionPreference = "Continue"
 $Root = $PSScriptRoot
 $Venv = Join-Path $Root ".venv"
 $Py = Join-Path $Venv "Scripts\python.exe"
