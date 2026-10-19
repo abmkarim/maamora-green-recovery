@@ -1,0 +1,23 @@
+# Airflow (image officielle) en mode standalone pour orchestrer le pipeline.
+# Lancement : .\tasks.ps1 airflow-up  puis http://localhost:8080
+# Les identifiants Earth Engine du profil utilisateur sont montés EN LECTURE SEULE ;
+# ils ne sont jamais copiés dans l'image ni dans le repo.
+services:
+  airflow:
+    image: apache/airflow:2.10.5-python3.11
+    command: standalone
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env            # fournit GEE_PROJECT (non versionné)
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/maamora/dags
+      _PIP_ADDITIONAL_REQUIREMENTS: >-
+        earthengine-api pandas geopandas shapely pyarrow scikit-learn xgboost shap
+        scipy statsmodels matplotlib pyyaml pydantic python-dotenv requests
+    volumes:
+      - ./:/opt/maamora
+      - ./airflow/logs:/opt/airflow/logs
+      # Windows : %USERPROFILE%\.config\earthengine ; Linux/macOS : ~/.config/earthengine
+      - ${EE_CREDENTIALS_DIR:-${USERPROFILE:-~}/.config/earthengine}:/home/airflow/.config/earthengine:ro

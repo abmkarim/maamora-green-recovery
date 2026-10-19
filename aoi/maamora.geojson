@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "maamora",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Forêt de la Maâmora (AOI d'étude)", "source": "fallback_bbox", "note": "OSM incomplet (5 polygones, 118 km² < 650 km²)", "vegetation_mask": "ESA WorldCover v200 classes 10/20" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -6.2, 34.0 ], [ -6.2, 34.35 ], [ -6.8, 34.35 ], [ -6.8, 34.0 ], [ -6.2, 34.0 ] ] ] } }
+]
+}

@@ -1,0 +1,93 @@
+# Configuration unique du pipeline Maâmora Green Recovery.
+seed: 42
+
+paths:
+  data_dir: data
+  reports_dir: reports
+  figures_dir: reports/figures
+  aoi_file: aoi/maamora.geojson
+  osm_reference_file: aoi/osm_maamora_partial.geojson
+
+aoi:
+  osm_name_regex: "Ma[âa]?mora"
+  overpass_urls:
+    - https://overpass-api.de/api/interpreter
+    - https://overpass.kumi.systems/api/interpreter
+  # Le contour OSM est jugé fiable s'il couvre au moins cette surface (km²).
+  # La forêt de la Maâmora fait environ 1 300 km².
+  osm_min_area_km2: 650
+  fallback_bbox: [-6.80, 34.00, -6.20, 34.35]  # lon_min, lat_min, lon_max, lat_max
+  utm_epsg: 32629
+
+grid:
+  resolution_m: 500
+  # Part minimale de pixels WorldCover arbres/arbustes pour garder une cellule.
+  min_veg_fraction: 0.5
+  # Taille des blocs spatiaux pour la validation croisée (m).
+  spatial_block_m: 5000
+
+gee:
+  max_retries: 6
+  backoff_base_s: 2.0
+  batch_size: 1500
+  tile_scale: 4
+  s2_collection: COPERNICUS/S2_SR_HARMONIZED
+  cloud_score_collection: GOOGLE/CLOUD_SCORE_PLUS/V1/S2_HARMONIZED
+  cs_band: cs_cdf
+  cs_threshold: 0.60
+  worldcover: ESA/WorldCover/v200
+  worldcover_classes: [10, 20]  # 10 = arbres, 20 = arbustes
+  chirps: UCSB-CHG/CHIRPS/DAILY
+  era5: ECMWF/ERA5_LAND/MONTHLY_AGGR
+  era5_band: temperature_2m
+  srtm: USGS/SRTMGL1_003
+  s2_scale_m: 20
+  chirps_scale_m: 5566
+  era5_scale_m: 11132
+  chirps_history_start: "1981-01"
+
+window:
+  n_months: 36
+  # null = dernier mois complet commun à Sentinel-2 et CHIRPS (déterminé une fois puis figé dans data/).
+  end_month: null
+
+target:
+  # Part minimale de pixels végétation ayant >= 1 observation valide dans le mois.
+  min_valid_fraction: 0.3
+  min_mean_obs: 1.0
+
+features:
+  rain_lags: [0, 1, 2, 3, 4, 5, 6]
+  rain_cumuls: [3, 6, 12]
+  temp_lags: [0, 1, 2]
+  ndvi_persistence_lags: [1, 12]
+
+model:
+  n_train_months: 27
+  n_test_months: 9
+  # Validation interne : derniers mois de l'entraînement.
+  n_inner_val_months: 6
+  param_grid:
+    max_depth: [3, 5, 7]
+    learning_rate: [0.03, 0.1]
+    min_child_weight: [1, 10]
+  n_estimators_max: 1500
+  early_stopping_rounds: 50
+  subsample: 0.8
+  colsample_bytree: 0.8
+  n_spatial_folds: 5
+  shap_sample: 5000
+
+insurance:
+  season_start_month: 10
+  season_end_month: 4
+  trigger_percentile: 30
+  exit_percentile: 5
+  sum_insured_mad: 1000000
+  n_simulations: 100000
+  cost_of_capital: 0.06
+  var_level: 0.99
+  sensitivity_triggers: [15, 20, 25, 30, 35, 40, 45]
+  sensitivity_exits: [1, 3, 5, 8, 10]
+  # Mois de pic NDVI utilisés pour le risque de base saisonnier.
+  ndvi_peak_months: [3, 4, 5]

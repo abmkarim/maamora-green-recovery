@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maamora"
+version = "0.1.0"
+description = "Maâmora Green Recovery : NDVI, pluie et assurance paramétrique sécheresse"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "earthengine-api>=1.0",
+    "pandas>=2.1",
+    "numpy>=1.26,<3",
+    "geopandas>=0.14",
+    "shapely>=2.0",
+    "pyarrow>=14",
+    "scikit-learn>=1.4",
+    "xgboost>=2.0",
+    "shap>=0.45",
+    "scipy>=1.11",
+    "statsmodels>=0.14",
+    "matplotlib>=3.8",
+    "pyyaml>=6.0",
+    "pydantic>=2.5",
+    "python-dotenv>=1.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5", "detect-secrets>=1.5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "SIM"]
+ignore = ["N803", "N806"]
+
+[tool.ruff.lint.per-file-ignores]
+# Gabarits Markdown : lignes longues voulues.
+"src/maamora/reporting/report.py" = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
