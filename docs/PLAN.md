@@ -18,4 +18,4 @@ Chaque case n'est cochée qu'après exécution réussie de sa commande de valida
 | 12 | Vérification visuelle de l'AOI | lecture de `reports/figures/aoi_map.png` | [x] |
 | 13 | Docs (README, METHODOLOGY, DATA) avec chiffres lus dans les JSON | script de génération du README + relecture | [x] |
 | 14 | Hygiène : `detect-secrets`, fichiers suivis < 5 Mo, aucun `data/` suivi | `.\tasks.ps1 secrets`, `git ls-files` | [x] |
-| 15 | Push final | `git push origin main`, `git status` propre | [ ] |
+| 15 | Push final | `git push origin main`, `git status` propre | [x] |
