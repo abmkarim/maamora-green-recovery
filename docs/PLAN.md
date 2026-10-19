@@ -14,8 +14,8 @@ Chaque case n'est cochée qu'après exécution réussie de sa commande de valida
 | 8 | DAG Airflow + docker-compose | `tests/test_infra.py::test_dag_structure` + import `DagBag` dans l'image Airflow officielle (Docker) | [x] |
 | 9 | Suite complète + lint | `.\tasks.ps1 test` vert, `ruff` propre | [x] |
 | 10 | Connexion Earth Engine | `python -c` init + opération triviale | [x] |
-| 11 | Pipeline complet | `.\tasks.ps1 run` (logs dans `logs/`) produit `reports/metrics.json` et `reports/insurance_pricing.json` | [ ] |
+| 11 | Pipeline complet | `.\tasks.ps1 run` (logs dans `logs/`) produit `reports/metrics.json` et `reports/insurance_pricing.json` | [x] |
 | 12 | Vérification visuelle de l'AOI | lecture de `reports/figures/aoi_map.png` | [x] |
-| 13 | Docs (README, METHODOLOGY, DATA) avec chiffres lus dans les JSON | script de génération du README + relecture | [ ] |
-| 14 | Hygiène : `detect-secrets`, fichiers suivis < 5 Mo, aucun `data/` suivi | `.\tasks.ps1 secrets`, `git ls-files` | [ ] |
+| 13 | Docs (README, METHODOLOGY, DATA) avec chiffres lus dans les JSON | script de génération du README + relecture | [x] |
+| 14 | Hygiène : `detect-secrets`, fichiers suivis < 5 Mo, aucun `data/` suivi | `.\tasks.ps1 secrets`, `git ls-files` | [x] |
 | 15 | Push final | `git push origin main`, `git status` propre | [ ] |

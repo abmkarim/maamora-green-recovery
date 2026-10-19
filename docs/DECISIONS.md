@@ -15,3 +15,10 @@
 | 2026-10-19 | SHAP calculé sur un échantillon de 5 000 lignes du test pour les deux variantes ; figures principales sur « climat seul ». | Dans la variante persistance, le NDVI t−1 écrase les effets climatiques. |
 | 2026-10-19 | Chargement de risque = 6 % × (VaR 99 % − prime pure). | Taux de coût du capital standard de Solvabilité II. |
 | 2026-10-19 | Test de tendance : Mann-Kendall (tau de Kendall vs année) et OLS (statsmodels) sur l'indice saisonnier. | Tests usuels, non paramétrique + paramétrique. |
+| 2026-10-19 | SPI-3 ajusté sur l'historique **antérieur à la fenêtre** (1981 → 2023-09) plutôt que sur l'entraînement. | Garantit strictement qu'aucune feature n'utilise d'information postérieure au mois cible (test anti-fuite). |
+| 2026-10-19 | CHIRPS et ERA5 réduits par cellule à 250 m (plus proche voisin) au lieu de leur résolution native. | Avec une échelle de 5,5 km, `reduceRegions` peut ne trouver aucun centre de pixel dans une cellule de 500 m. |
+| 2026-10-19 | Fenêtre figée à 2023-10 → 2026-09 dans `data/window.json` (dernier mois complet CHIRPS = Sentinel-2 = 2026-09). | Idempotence : relancer ne déplace pas la fenêtre. |
+| 2026-10-19 | `tasks.ps1` utilise `$ErrorActionPreference = "Continue"` et vérifie `$LASTEXITCODE` ; la CLI journalise sur stdout et `logs/pipeline.log`. | Sous PowerShell 5.1, « Stop » rend fatale toute écriture stderr d'un exécutable natif (premier `run` interrompu). |
+| 2026-10-19 | Ajout d'un diagnostic `distribution_shift` (plages train vs test) dans `metrics.json`, calculé après la découpe. | Expliquer l'échec du modèle climat seul sur le test avec des chiffres produits par le code ; n'influence aucun choix de modèle. |
+| 2026-10-19 | Résultats publiés tels quels après le premier entraînement (R² test climat seul négatif) ; aucun réglage n'a été fait sur le test. | Règle d'intégrité §0.4. Le second `run` (identique, graine fixe) n'a servi qu'à ajouter le diagnostic. |
+| 2026-10-19 | DAG validé en important `DagBag` dans l'image `apache/airflow:2.10.5-python3.11` (Docker) ; Airflow non installé dans le venv. | Évite d'alourdir le venv ; le test pytest vérifie la structure sans Airflow. |

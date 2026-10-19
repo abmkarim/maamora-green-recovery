@@ -9,7 +9,58 @@
 Tous les chiffres de cette section sont générés par `python -m maamora.cli report` à partir de [`reports/metrics.json`](reports/metrics.json) et [`reports/insurance_pricing.json`](reports/insurance_pricing.json). Ils sont publiés tels quels.
 
 <!-- RESULTS:START -->
-(généré par `.\tasks.ps1 report`)
+Fenêtre : **2023-10 → 2026-09** (36 mois), **2157 cellules** de 500 m. Entraînement 2023-10 → 2025-12 (57803 lignes), test 2026-01 → 2026-09 (19352 lignes valides, dont 19291 où tous les modèles sont définis).
+
+### Prédiction du NDVI sur la période de test (9 derniers mois)
+
+| Modèle | R² | RMSE | MAE | n | R² (toutes lignes valides) |
+|---|---|---|---|---|---|
+| XGBoost climat seul | -0.197 | 0.1510 | 0.1249 | 19291 | -0.198 (n=19352) |
+| XGBoost climat + persistance | 0.873 | 0.0492 | 0.0362 | 19291 | 0.867 (n=19352) |
+| Baseline climatologie | 0.410 | 0.1059 | 0.0814 | 19291 | 0.408 (n=19352) |
+| Baseline persistance (t−1) | 0.814 | 0.0595 | 0.0422 | 19291 | 0.814 (n=19291) |
+
+Décalage de distribution entre entraînement et test (diagnostic a posteriori) :
+
+| Variable | Max train | Max test | Moyenne train | Moyenne test | Part du test > max train |
+|---|---|---|---|---|---|
+| `rain_cum6` | 475 | 821 | 182 | 459 | 55.4 % |
+| `rain_cum12` | 742 | 936 | 367 | 798 | 89.9 % |
+| `rain_lag0` | 332 | 227 | 42 | 43 | 0.0 % |
+| `ndvi_target` | 0.935 | 0.921 | 0.400 | 0.457 | 0.0 % |
+
+R² de la moyenne mensuelle de l'AOI (9 points) : XGBoost climat seul -0.693, XGBoost climat + persistance 0.889, Baseline climatologie 0.194, Baseline persistance (t−1) 0.770.
+
+### Validation croisée sur l'entraînement : aléatoire vs blocs spatiaux de 5 km
+
+| Variante | R² KFold aléatoire | R² blocs spatiaux | Écart |
+|---|---|---|---|
+| XGBoost climat seul | 0.805 | 0.387 | 0.417 |
+| XGBoost climat + persistance | 0.932 | 0.921 | 0.011 |
+
+### SHAP (échantillon du test)
+
+- **XGBoost climat seul** : feature la plus importante `rain_cum12` ; décalage de pluie dominant `rain_lag5` (5 mois, rang 5 toutes features confondues) ; feature pluie la plus importante `rain_cum12`.
+- **XGBoost climat + persistance** : feature la plus importante `ndvi_lag1` ; décalage de pluie dominant `rain_lag2` (2 mois, rang 2 toutes features confondues) ; feature pluie la plus importante `rain_lag2`.
+
+### Assurance paramétrique sécheresse (illustratif)
+
+Indice : Cumul CHIRPS mois 10 → 4, moyenne AOI, 45 saisons (1982 → 2026), moyenne 451 mm. Déclencheur P30 = **348 mm**, sortie P5 = **287 mm**, capital **notionnel** 1 000 000 MAD.
+
+| Mesure | Loi gamma | Bootstrap |
+|---|---|---|
+| Prime pure E[paiement] | 152 324 MAD | 133 781 MAD |
+| Taux de prime pure | 15.23 % | 13.38 % |
+| Chargement (CoC 6 % × (VaR − E)) | 50 861 MAD | 51 973 MAD |
+| **Prime technique** | **203 185 MAD** | **185 755 MAD** |
+| Écart-type | 326 246 MAD | 294 463 MAD |
+| VaR 99 % | 1 000 000 MAD | 1 000 000 MAD |
+| TVaR 99 % | 1 000 000 MAD | 1 000 000 MAD |
+| Probabilité de paiement | 22.6 % | 31.2 % |
+
+Burning cost historique : 134 914 MAD par an (13.49 %), 14 saisons avec paiement. Ajustement gamma : test KS p = 0.53. Tendance de l'indice : Mann-Kendall τ = 0.06 (p = 0.584), pente OLS 1.48 mm/an (p = 0.348) — pas de tendance significative à 5 %.
+
+Risque de base (fenêtre de 36 mois) : corrélation entre le cumul de pluie glissant sur 7 mois et l'anomalie de NDVI observée r = 0.61 (p = 0.000, n = 36) ; avec l'anomalie prédite par le modèle climat seul r = -0.24 (n = 36). Seulement 3 saisons complètes dans la fenêtre : ces corrélations sont indicatives.
 <!-- RESULTS:END -->
 
 ### Figures
@@ -28,7 +79,12 @@ Autres figures : [variante persistance (SHAP)](reports/figures/shap_importance_c
 
 ## Analyse
 
-Voir la section « Lecture des résultats » de [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
+- **Le modèle « climat seul » échoue sur le test** : son R² est négatif, en dessous de la simple climatologie. Ce n'est pas un défaut de code mais un **décalage de distribution** : l'hiver 2025-26, qui ouvre la période de test, est le plus pluvieux de la fenêtre (voir le tableau de décalage ci-dessus et la dernière barre de la figure burning cost), la quasi-totalité des lignes de test ont un cumul de pluie sur 12 mois supérieur au maximum vu à l'entraînement, et le NDVI moyen est nettement plus élevé. Un modèle à arbres ne peut pas extrapoler au-delà des valeurs de features apprises : il prédit au mieux un « bon hiver » de la période d'entraînement, puis s'effondre au printemps. Avec 27 mois d'apprentissage, le modèle n'a vu que deux saisons des pluies, toutes deux sèches à modérées.
+- **Le modèle « climat + persistance » est le meilleur** et bat la baseline de persistance : le NDVI du mois précédent porte l'essentiel de l'information, les variables climatiques ajoutent une correction modeste mais réelle.
+- **Autocorrélation spatiale** : pour la variante climat seul, l'écart entre K-fold aléatoire et blocs spatiaux est très important. Un K-fold aléatoire mélange des cellules voisines qui partagent la même pluie CHIRPS et surestime fortement la performance. La variante persistance y est peu sensible.
+- **Facteur pluie dominant (SHAP)** : dans la variante climat seul, c'est le **cumul sur 12 mois** qui domine, et le décalage mensuel le plus important est de 5 mois. Dans la variante persistance, le décalage de **2 mois** est le premier facteur pluie (2ᵉ feature après le NDVI t−1). Le repère « pluies des 2 mois précédents » n'est donc retrouvé que dans la variante persistance ; sans persistance, le modèle s'appuie sur des cumuls plus longs, cohérents avec la réponse lente d'une forêt de chêne-liège.
+- **Assurance** : avec un déclencheur au 30ᵉ percentile, la prime pure représente une part importante du capital (voir le tableau) car le contrat paie souvent, et la VaR 99 % atteint le capital total. Gamma et bootstrap donnent des primes proches ; l'ajustement gamma n'est pas rejeté par le test KS et aucune tendance significative de l'indice n'est détectée depuis 1982. Les probabilités de paiement diffèrent davantage : la loi gamma lisse la queue basse.
+- **Risque de base** : le cumul de pluie glissant est nettement corrélé à l'anomalie de NDVI observée sur la fenêtre, mais l'anomalie prédite par le modèle climat seul ne l'est pas (elle hérite de son échec hors distribution). Avec trois saisons, aucune conclusion saisonnière n'est possible.
 
 ## Zone d'étude
 

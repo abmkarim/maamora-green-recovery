@@ -180,7 +180,8 @@ def plot_insurance(cfg: Config, index: pd.Series, pays: dict[str, np.ndarray],
     ax.axhline(exit_, color=SERIES[3], lw=1.8, label=f"sortie {exit_:.0f} mm")
     ax.set_ylabel("Pluie oct.→avr. (mm)")
     ax.set_title("Indice saisonnier CHIRPS (moyenne AOI) et paiements historiques")
-    ax.legend(loc="upper right")
+    ax.legend(loc="upper left", ncol=2)
+    ax.set_ylim(0, bc.index_mm.max() * 1.15)
     ax = axes[1]
     ax.bar(bc.season, bc.payout_mad / 1000, color=SERIES[1], width=0.8)
     ax.set_ylabel("Paiement (k MAD)")

@@ -1,0 +1,636 @@
+{
+  "disclaimer": "Illustratif : capital assuré notionnel, ceci n'est pas une offre d'assurance.",
+  "index": {
+    "definition": "Cumul CHIRPS mois 10 → 4, moyenne AOI",
+    "n_seasons": 45,
+    "first_season": 1982,
+    "last_season": 2026,
+    "mean_mm": 451.4963108695294,
+    "std_mm": 135.97977964767503,
+    "min_mm": 237.84175192753474,
+    "max_mm": 772.5710660944394
+  },
+  "contract": {
+    "sum_insured_mad": 1000000.0,
+    "sum_insured_is_notional": true,
+    "trigger_percentile": 30.0,
+    "exit_percentile": 5.0,
+    "trigger_mm": 348.38098116652174,
+    "exit_mm": 287.41017334334055
+  },
+  "parameters": {
+    "n_simulations": 100000,
+    "seed": 42,
+    "cost_of_capital": 0.06,
+    "var_level": 0.99
+  },
+  "gamma_fit": {
+    "shape": 11.926894785238941,
+    "loc": 0.0,
+    "scale": 37.855310958918984,
+    "ks_stat": 0.1166529171013998,
+    "ks_pvalue": 0.5343679014096349
+  },
+  "trend_test": {
+    "mann_kendall_tau": 0.056565656565656555,
+    "mann_kendall_pvalue": 0.5838224355915755,
+    "ols_slope_mm_per_year": 1.4839871245326859,
+    "ols_pvalue": 0.3475657672765784,
+    "ols_slope_ci95": [
+      -1.6672238108827093,
+      4.635198059948081
+    ],
+    "significant_5pct": false
+  },
+  "pricing": {
+    "gamma": {
+      "expected_payout": 152324.06325523215,
+      "std": 326246.04384065466,
+      "var": 1000000.0,
+      "tvar": 1000000.0,
+      "prob_payout": 0.2255,
+      "prob_full_payout": 0.08986,
+      "pure_premium": 152324.06325523215,
+      "risk_capital": 847675.9367447678,
+      "risk_loading": 50860.556204686065,
+      "technical_premium": 203184.6194599182,
+      "pure_rate_pct": 15.232406325523215,
+      "technical_rate_pct": 20.31846194599182
+    },
+    "bootstrap": {
+      "expected_payout": 133781.38966545596,
+      "std": 294463.2361195878,
+      "var": 1000000.0,
+      "tvar": 1000000.0,
+      "prob_payout": 0.31179,
+      "prob_full_payout": 0.06593,
+      "pure_premium": 133781.38966545596,
+      "risk_capital": 866218.610334544,
+      "risk_loading": 51973.11662007264,
+      "technical_premium": 185754.5062855286,
+      "pure_rate_pct": 13.378138966545597,
+      "technical_rate_pct": 18.575450628552858
+    }
+  },
+  "burning_cost": {
+    "mean_payout_mad": 134914.28258463502,
+    "rate_pct": 13.491428258463502,
+    "n_payout_years": 14,
+    "by_season": [
+      {
+        "season": 1982,
+        "index_mm": 375.9385762103399,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1983,
+        "index_mm": 342.60619638125104,
+        "payout_mad": 94713.92936137407
+      },
+      {
+        "season": 1984,
+        "index_mm": 327.7365263779958,
+        "payout_mad": 338595.7235206072
+      },
+      {
+        "season": 1985,
+        "index_mm": 393.2862250630061,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1986,
+        "index_mm": 398.3558000854651,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1987,
+        "index_mm": 350.7029420010249,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1988,
+        "index_mm": 493.1588293345769,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1989,
+        "index_mm": 406.37704965909325,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1990,
+        "index_mm": 508.38649277448656,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1991,
+        "index_mm": 465.7608432006836,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1992,
+        "index_mm": 326.95763711134595,
+        "payout_mad": 351370.51353009307
+      },
+      {
+        "season": 1993,
+        "index_mm": 295.07170709451043,
+        "payout_mad": 874340.9506170761
+      },
+      {
+        "season": 1994,
+        "index_mm": 456.66681389808656,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1995,
+        "index_mm": 237.84175192753474,
+        "payout_mad": 1000000.0
+      },
+      {
+        "season": 1996,
+        "index_mm": 728.6413078784942,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1997,
+        "index_mm": 683.5780905715625,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1998,
+        "index_mm": 438.86699701309203,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 1999,
+        "index_mm": 300.08015074412026,
+        "payout_mad": 792196.0057094311
+      },
+      {
+        "season": 2000,
+        "index_mm": 347.2546686283747,
+        "payout_mad": 18472.980404219074
+      },
+      {
+        "season": 2001,
+        "index_mm": 476.89428380012515,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2002,
+        "index_mm": 474.27845037937163,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2003,
+        "index_mm": 674.141164636612,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2004,
+        "index_mm": 605.395384923617,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2005,
+        "index_mm": 370.8804410998026,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2006,
+        "index_mm": 629.1184590037664,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2007,
+        "index_mm": 395.28947250684104,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2008,
+        "index_mm": 379.636786359946,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2009,
+        "index_mm": 685.1555281035105,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2010,
+        "index_mm": 656.0540899499257,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2011,
+        "index_mm": 586.224109544754,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2012,
+        "index_mm": 347.80049095789593,
+        "payout_mad": 9520.789199796378
+      },
+      {
+        "season": 2013,
+        "index_mm": 533.2053884394963,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2014,
+        "index_mm": 344.39322454452514,
+        "payout_mad": 65404.35930521565
+      },
+      {
+        "season": 2015,
+        "index_mm": 537.0325996367136,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2016,
+        "index_mm": 285.4947899055481,
+        "payout_mad": 1000000.0
+      },
+      {
+        "season": 2017,
+        "index_mm": 554.6076182079315,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2018,
+        "index_mm": 564.8288370116552,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2019,
+        "index_mm": 414.8800012926839,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2020,
+        "index_mm": 336.0114735092285,
+        "payout_mad": 202875.90240177754
+      },
+      {
+        "season": 2021,
+        "index_mm": 502.68418132547527,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2022,
+        "index_mm": 281.3697565205892,
+        "payout_mad": 1000000.0
+      },
+      {
+        "season": 2023,
+        "index_mm": 343.6192836252848,
+        "payout_mad": 78097.99002575308
+      },
+      {
+        "season": 2024,
+        "index_mm": 355.0891202904478,
+        "payout_mad": 0.0
+      },
+      {
+        "season": 2025,
+        "index_mm": 333.40938150359375,
+        "payout_mad": 245553.5722332313
+      },
+      {
+        "season": 2026,
+        "index_mm": 772.5710660944394,
+        "payout_mad": 0.0
+      }
+    ]
+  },
+  "sensitivity": [
+    {
+      "trigger_pct": 15.0,
+      "exit_pct": 1.0,
+      "trigger_mm": 331.1402394533546,
+      "exit_mm": 256.9940739484787,
+      "pure_premium_gamma": 105901.47640123268,
+      "pure_premium_bootstrap": 72680.56372652075
+    },
+    {
+      "trigger_pct": 15.0,
+      "exit_pct": 3.0,
+      "trigger_mm": 331.1402394533546,
+      "exit_mm": 282.68976720377606,
+      "pure_premium_gamma": 127940.6141625945,
+      "pure_premium_bootstrap": 98700.02497575879
+    },
+    {
+      "trigger_pct": 15.0,
+      "exit_pct": 5.0,
+      "trigger_mm": 331.1402394533546,
+      "exit_mm": 287.41017334334055,
+      "pure_premium_gamma": 132446.72416190902,
+      "pure_premium_bootstrap": 103636.98120854344
+    },
+    {
+      "trigger_pct": 15.0,
+      "exit_pct": 8.0,
+      "trigger_mm": 331.1402394533546,
+      "exit_mm": 297.67609779230753,
+      "pure_premium_gamma": 142790.77296186038,
+      "pure_premium_bootstrap": 113441.73204613461
+    },
+    {
+      "trigger_pct": 15.0,
+      "exit_pct": 10.0,
+      "trigger_mm": 331.1402394533546,
+      "exit_mm": 310.83114529101056,
+      "pure_premium_gamma": 157043.93775772507,
+      "pure_premium_bootstrap": 118211.93360921726
+    },
+    {
+      "trigger_pct": 20.0,
+      "exit_pct": 1.0,
+      "trigger_mm": 341.28725180684654,
+      "exit_mm": 256.9940739484787,
+      "pure_premium_gamma": 116438.90375244273,
+      "pure_premium_bootstrap": 85909.13225696613
+    },
+    {
+      "trigger_pct": 20.0,
+      "exit_pct": 3.0,
+      "trigger_mm": 341.28725180684654,
+      "exit_mm": 282.68976720377606,
+      "pure_premium_gamma": 139282.42924667586,
+      "pure_premium_bootstrap": 113223.82733666459
+    },
+    {
+      "trigger_pct": 20.0,
+      "exit_pct": 5.0,
+      "trigger_mm": 341.28725180684654,
+      "exit_mm": 287.41017334334055,
+      "pure_premium_gamma": 143933.58088429595,
+      "pure_premium_bootstrap": 118503.46900225406
+    },
+    {
+      "trigger_pct": 20.0,
+      "exit_pct": 8.0,
+      "trigger_mm": 341.28725180684654,
+      "exit_mm": 297.67609779230753,
+      "pure_premium_gamma": 154574.84750851267,
+      "pure_premium_bootstrap": 129526.47039616077
+    },
+    {
+      "trigger_pct": 20.0,
+      "exit_pct": 10.0,
+      "trigger_mm": 341.28725180684654,
+      "exit_mm": 310.83114529101056,
+      "pure_premium_gamma": 169169.25819291756,
+      "pure_premium_bootstrap": 139654.94724386343
+    },
+    {
+      "trigger_pct": 25.0,
+      "exit_pct": 1.0,
+      "trigger_mm": 344.39322454452514,
+      "exit_mm": 256.9940739484787,
+      "pure_premium_gamma": 119789.21971310307,
+      "pure_premium_bootstrap": 90557.18795755404
+    },
+    {
+      "trigger_pct": 25.0,
+      "exit_pct": 3.0,
+      "trigger_mm": 344.39322454452514,
+      "exit_mm": 282.68976720377606,
+      "pure_premium_gamma": 142878.06896176227,
+      "pure_premium_bootstrap": 118432.56985694304
+    },
+    {
+      "trigger_pct": 25.0,
+      "exit_pct": 5.0,
+      "trigger_mm": 344.39322454452514,
+      "exit_mm": 287.41017334334055,
+      "pure_premium_gamma": 147573.5588639758,
+      "pure_premium_bootstrap": 123855.92016784863
+    },
+    {
+      "trigger_pct": 25.0,
+      "exit_pct": 8.0,
+      "trigger_mm": 344.39322454452514,
+      "exit_mm": 297.67609779230753,
+      "pure_premium_gamma": 158307.21676321686,
+      "pure_premium_bootstrap": 135322.24329204406
+    },
+    {
+      "trigger_pct": 25.0,
+      "exit_pct": 10.0,
+      "trigger_mm": 344.39322454452514,
+      "exit_mm": 310.83114529101056,
+      "pure_premium_gamma": 173013.94626707307,
+      "pure_premium_bootstrap": 146785.10989657853
+    },
+    {
+      "trigger_pct": 30.0,
+      "exit_pct": 1.0,
+      "trigger_mm": 348.38098116652174,
+      "exit_mm": 256.9940739484787,
+      "pure_premium_gamma": 124171.02105564922,
+      "pure_premium_bootstrap": 98632.2082819475
+    },
+    {
+      "trigger_pct": 30.0,
+      "exit_pct": 3.0,
+      "trigger_mm": 348.38098116652174,
+      "exit_mm": 282.68976720377606,
+      "pure_premium_gamma": 147572.2516789277,
+      "pure_premium_bootstrap": 127974.04209651295
+    },
+    {
+      "trigger_pct": 30.0,
+      "exit_pct": 5.0,
+      "trigger_mm": 348.38098116652174,
+      "exit_mm": 287.41017334334055,
+      "pure_premium_gamma": 152324.06325523215,
+      "pure_premium_bootstrap": 133781.38966545596
+    },
+    {
+      "trigger_pct": 30.0,
+      "exit_pct": 8.0,
+      "trigger_mm": 348.38098116652174,
+      "exit_mm": 297.67609779230753,
+      "pure_premium_gamma": 163175.3647306383,
+      "pure_premium_bootstrap": 146355.48013426707
+    },
+    {
+      "trigger_pct": 30.0,
+      "exit_pct": 10.0,
+      "trigger_mm": 348.38098116652174,
+      "exit_mm": 310.83114529101056,
+      "pure_premium_gamma": 178025.7395967036,
+      "pure_premium_bootstrap": 160466.33787368253
+    },
+    {
+      "trigger_pct": 35.0,
+      "exit_pct": 1.0,
+      "trigger_mm": 361.4056486141897,
+      "exit_mm": 256.9940739484787,
+      "pure_premium_gamma": 139015.17615241912,
+      "pure_premium_bootstrap": 128858.50294744213
+    },
+    {
+      "trigger_pct": 35.0,
+      "exit_pct": 3.0,
+      "trigger_mm": 361.4056486141897,
+      "exit_mm": 282.68976720377606,
+      "pure_premium_gamma": 163390.00457950923,
+      "pure_premium_bootstrap": 163212.26016501655
+    },
+    {
+      "trigger_pct": 35.0,
+      "exit_pct": 5.0,
+      "trigger_mm": 361.4056486141897,
+      "exit_mm": 287.41017334334055,
+      "pure_premium_gamma": 168314.46796058834,
+      "pure_premium_bootstrap": 170245.35741321192
+    },
+    {
+      "trigger_pct": 35.0,
+      "exit_pct": 8.0,
+      "trigger_mm": 361.4056486141897,
+      "exit_mm": 297.67609779230753,
+      "pure_premium_gamma": 179523.87165431742,
+      "pure_premium_bootstrap": 186123.4565950827
+    },
+    {
+      "trigger_pct": 35.0,
+      "exit_pct": 10.0,
+      "trigger_mm": 361.4056486141897,
+      "exit_mm": 310.83114529101056,
+      "pure_premium_gamma": 194802.21297754903,
+      "pure_premium_bootstrap": 206944.42254146416
+    },
+    {
+      "trigger_pct": 40.0,
+      "exit_pct": 1.0,
+      "trigger_mm": 378.15750230010354,
+      "exit_mm": 256.9940739484787,
+      "pure_premium_gamma": 159328.34101524437,
+      "pure_premium_bootstrap": 162063.70496107056
+    },
+    {
+      "trigger_pct": 40.0,
+      "exit_pct": 3.0,
+      "trigger_mm": 378.15750230010354,
+      "exit_mm": 282.68976720377606,
+      "pure_premium_gamma": 184893.4909034534,
+      "pure_premium_bootstrap": 199326.73378409285
+    },
+    {
+      "trigger_pct": 40.0,
+      "exit_pct": 5.0,
+      "trigger_mm": 378.15750230010354,
+      "exit_mm": 287.41017334334055,
+      "pure_premium_gamma": 190027.4513467895,
+      "pure_premium_bootstrap": 206940.0967827341
+    },
+    {
+      "trigger_pct": 40.0,
+      "exit_pct": 8.0,
+      "trigger_mm": 378.15750230010354,
+      "exit_mm": 297.67609779230753,
+      "pure_premium_gamma": 201673.2981746257,
+      "pure_premium_bootstrap": 224193.89049198106
+    },
+    {
+      "trigger_pct": 40.0,
+      "exit_pct": 10.0,
+      "trigger_mm": 378.15750230010354,
+      "exit_mm": 310.83114529101056,
+      "pure_premium_gamma": 217477.97451890522,
+      "pure_premium_bootstrap": 247272.94075824067
+    },
+    {
+      "trigger_pct": 45.0,
+      "exit_pct": 1.0,
+      "trigger_mm": 394.88882301807405,
+      "exit_mm": 256.9940739484787,
+      "pure_premium_gamma": 180775.42370321418,
+      "pure_premium_bootstrap": 193719.27817336662
+    },
+    {
+      "trigger_pct": 45.0,
+      "exit_pct": 3.0,
+      "trigger_mm": 394.88882301807405,
+      "exit_mm": 282.68976720377606,
+      "pure_premium_gamma": 207440.03860111663,
+      "pure_premium_bootstrap": 232675.29996806945
+    },
+    {
+      "trigger_pct": 45.0,
+      "exit_pct": 5.0,
+      "trigger_mm": 394.88882301807405,
+      "exit_mm": 287.41017334334055,
+      "pure_premium_gamma": 212765.0223175338,
+      "pure_premium_bootstrap": 240568.1338995781
+    },
+    {
+      "trigger_pct": 45.0,
+      "exit_pct": 8.0,
+      "trigger_mm": 394.88882301807405,
+      "exit_mm": 297.67609779230753,
+      "pure_premium_gamma": 224807.6462888995,
+      "pure_premium_bootstrap": 258403.58121565628
+    },
+    {
+      "trigger_pct": 45.0,
+      "exit_pct": 10.0,
+      "trigger_mm": 394.88882301807405,
+      "exit_mm": 310.83114529101056,
+      "pure_premium_gamma": 241087.0007424708,
+      "pure_premium_bootstrap": 282242.6704961078
+    }
+  ],
+  "basis_risk": {
+    "monthly_rolling_index_vs_obs_ndvi_anomaly": {
+      "n": 36,
+      "pearson_r": 0.61088886860224,
+      "pearson_p": 7.585895138887093e-05,
+      "spearman_rho": 0.3781209781209781,
+      "spearman_p": 0.022977050319975288
+    },
+    "monthly_rolling_index_vs_model_ndvi_anomaly": {
+      "n": 36,
+      "pearson_r": -0.2367132048304299,
+      "pearson_p": 0.16452833871933306,
+      "spearman_rho": -0.06023166023166024,
+      "spearman_p": 0.7271246300663885
+    },
+    "model_vs_obs_ndvi_anomaly": {
+      "n": 36,
+      "pearson_r": -0.11547846038562268,
+      "pearson_p": 0.5024324763645858,
+      "spearman_rho": -0.12020592020592022,
+      "spearman_p": 0.4849768519200865
+    },
+    "seasons_in_window": [
+      {
+        "season": 2024,
+        "index_mm": 355.0891202904478,
+        "ndvi_anomaly_obs_peak": -0.028422981116454804,
+        "ndvi_anomaly_pred_peak": 0.010632176883518696
+      },
+      {
+        "season": 2025,
+        "index_mm": 333.40938150359375,
+        "ndvi_anomaly_obs_peak": -0.034926704000082374,
+        "ndvi_anomaly_pred_peak": 0.004013627767562866
+      },
+      {
+        "season": 2026,
+        "index_mm": 772.5710660944394,
+        "ndvi_anomaly_obs_peak": 0.0633496851165371,
+        "ndvi_anomaly_pred_peak": -0.014645785093307495
+      }
+    ],
+    "rolling_window_months": 7,
+    "limitations": "Fenêtre NDVI de 36 mois : seulement quelques saisons complètes, corrélations saisonnières non significatives par construction ; anomalies calculées sur la même fenêtre courte ; NDVI moyen de l'AOI masque l'hétérogénéité spatiale ; le NDVI d'une forêt de chêne-liège réagit avec retard et partiellement à la pluie.",
+    "available": true,
+    "note": "Prédictions du modèle « climat seul » : en-échantillon sur les 27 mois d'entraînement, hors-échantillon sur les 9 mois de test."
+  }
+}

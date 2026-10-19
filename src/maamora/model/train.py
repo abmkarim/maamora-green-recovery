@@ -135,11 +135,28 @@ def run_training(cfg: Config) -> dict[str, Any]:
         "n_cells": int(feats.cell_id.nunique()),
         "target_valid_share": float(feats[TARGET].notna().mean()),
         "test": test_metrics,
+        "distribution_shift": distribution_shift(train, test),
         "variants": variants,
     }
     write_json(cfg.reports_dir / "metrics.json", metrics, merge=True)
     log.info("Test (lignes communes) : %s", json.dumps(test_metrics["common_rows"], indent=1))
     return metrics
+
+
+def distribution_shift(train: pd.DataFrame, test: pd.DataFrame,
+                       cols: tuple[str, ...] = ("rain_cum6", "rain_cum12", "rain_lag0",
+                                                TARGET)) -> dict[str, Any]:
+    """Compare la plage des variables clés entre entraînement et test (diagnostic).
+
+    Calculé après coup sur des données déjà découpées : n'intervient dans aucun choix.
+    """
+    out: dict[str, Any] = {}
+    for c in cols:
+        tr, te = train[c].dropna(), test[c].dropna()
+        out[c] = {"train_max": float(tr.max()), "test_max": float(te.max()),
+                  "train_mean": float(tr.mean()), "test_mean": float(te.mean()),
+                  "test_share_above_train_max": float((te > tr.max()).mean())}
+    return out
 
 
 def write_json(path: Path, payload: dict[str, Any], merge: bool = False) -> None:

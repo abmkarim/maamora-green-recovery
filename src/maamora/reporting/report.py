@@ -51,6 +51,16 @@ def results_markdown(metrics: dict[str, Any], ins: dict[str, Any]) -> str:
         c, a = t["common_rows"][m], t["all_valid_rows"][m]
         lines.append(f"| {lab} | {_f(c['r2'])} | {_f(c['rmse'], 4)} | {_f(c['mae'], 4)} | "
                      f"{c['n']} | {_f(a['r2'])} (n={a['n']}) |")
+    shift = metrics.get("distribution_shift")
+    if shift:
+        lines += ["", "Décalage de distribution entre entraînement et test (diagnostic a posteriori) :",
+                  "", "| Variable | Max train | Max test | Moyenne train | Moyenne test | Part du test > max train |",
+                  "|---|---|---|---|---|---|"]
+        for col, v in shift.items():
+            nd = 3 if col == TARGET else 0
+            lines.append(f"| `{col}` | {_f(v['train_max'], nd)} | {_f(v['test_max'], nd)} | "
+                         f"{_f(v['train_mean'], nd)} | {_f(v['test_mean'], nd)} | "
+                         f"{_f(100 * v['test_share_above_train_max'], 1)} % |")
     lines += ["", "R² de la moyenne mensuelle de l'AOI (9 points) : " + ", ".join(
         f"{LABELS[m]} {_f(v['r2'])}" for m, v in t["aoi_monthly_mean"].items()) + ".", "",
         "### Validation croisée sur l'entraînement : aléatoire vs blocs spatiaux de 5 km", "",
